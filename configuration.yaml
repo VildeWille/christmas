@@ -1,0 +1,54 @@
+
+
+
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+input_select:
+  radio_station:
+    name: Radiokanal
+    options:
+     - Mix Megapol 107,0
+     - R.SH Weihnachtsmix DE
+     - Smooth Jazz Florida Christmas
+     - SR P2 Klassisk Jul
+     - SR P4 Bjällerklang
+     - none
+    initial: none
+    icon: mdi:radio
+automation:
+- id: '003'
+  alias: Stream Radio - Template
+  hide_entity: true
+  trigger:
+  - platform: state
+    entity_id: input_select.radio_station
+  action:
+  - service: media_player.play_media
+    data_template:
+      entity_id: media_player.hall
+      media_content_id: >
+        {% if is_state("input_select.radio_station", "Mix Megapol 107,0") %} http://194.16.21.227/mix_malmo_se_mp3
+        {%-elif is_state("input_select.radio_station", "R.SH Weihnachtsmix DE") %} http://streams.rsh.de/rsh-event02/mp3-192/listenlive/play
+        {%-elif is_state("input_select.radio_station", "Smooth Jazz Florida Christmas") %} http://de1.internet-radio.com:8380/listen.pls&t=.m3u
+        {%-elif is_state("input_select.radio_station", "SR P2 Klassisk Jul") %} https://sverigesradio.se/topsy/direkt/3036-hi-mp3
+        {%-elif is_state("input_select.radio_station", "SR P4 Bjällerklang") %} https://sverigesradio.se/topsy/direkt/3034-hi-mp3
+        {% else %} none
+        {% endif %}
+      media_content_type: playlist
+- id: '004'
+  alias: Stop Streaming Radio
+  hide_entity: true
+  trigger:
+  - platform: state
+    entity_id: input_select.radio_station
+    to: none
+  action:
+  - service: media_player.turn_off
+    data_template:
+    entity_id: media_player.hall
+  initial_state: 'off'
+  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  
+  
+  
