@@ -3,7 +3,6 @@
 
 
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 input_select:
   radio_station:
     name: Radiokanal
@@ -48,7 +47,3 @@ automation:
     data_template:
     entity_id: media_player.hall
   initial_state: 'off'
-  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-  
-  
-  
